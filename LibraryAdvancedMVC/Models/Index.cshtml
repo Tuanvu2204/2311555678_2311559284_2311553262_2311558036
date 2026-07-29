@@ -1,0 +1,74 @@
+﻿@model IEnumerable<LibraryAdvancedMVC.Models.LoanTicket>
+
+@{
+    ViewData["Title"] = "Loan Tickets";
+}
+
+<h2 class="mb-3">Loan Tickets</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        Create New Loan Ticket
+    </a>
+</p>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Ticket ID</th>
+            <th>Borrower Name</th>
+            <th>Borrow Date</th>
+            <th>Status</th>
+            <th>Total Books</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Id</td>
+
+                <td>@item.BorrowerName</td>
+
+                <td>
+                    @item.BorrowDate.("dd/MM/yyyy")
+                </td>
+
+                <td>@item.Status</td>
+
+                <td>
+                    @item.LoanDetails.Sum(x => x.Quantity)
+                </td>
+
+                <td>
+
+                    <a asp-action="Details"
+                       asp-route-id="@item.Id"
+                       class="btn btn-info btn-sm">
+                        Details
+                    </a>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@item.Id"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.Id"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>
